@@ -2,7 +2,7 @@
 
 ### Ian T. Ellwood, Department of Neurobiology and Behavior, Cornell University
 
-This repository contains the code to implement the model described in the paper. While we have made every attempt to make sure that all the files needed to reproduce the paper's figures are available, the NEURON simulator has a number of quirks. Please contact the author with any questions or concerns about the code or aspects of the model. 
+This repository contains the code to implement the model described in the paper, "Short-term Hebbian learning can implement transformer-like attention". While we have made every attempt to make sure that all the files needed to reproduce the paper's figures are available, the NEURON simulator has a number of quirks. Please contact the author with any questions or concerns about the code or aspects of the model. 
 
 All code is dependent on the NEURON
 simulator https://www.neuron.yale.edu/neuron/, which must be installed so that your python interpreter can access its
