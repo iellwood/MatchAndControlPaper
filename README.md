@@ -2,10 +2,10 @@
 
 ### Ian T. Ellwood, Department of Neurobiology and Behavior, Cornell University
 
-This repository contains the code to implement the model described in the paper, "Short-term Hebbian learning can implement transformer-like attention". While we have made every attempt to make sure that all the files needed to reproduce the paper's figures are available, the NEURON simulator has a number of quirks. Please contact the author with any questions or concerns about the code or aspects of the model. 
+This repository contains the code to implement the model described in the paper, "Short-term Hebbian learning can implement transformer-like attention". While we have made every attempt to make sure that all the files needed to reproduce the paper's figures are available, please contact the author with any questions or concerns about the code or aspects of the model. 
 
-All code is dependent on the NEURON
-simulator https://www.neuron.yale.edu/neuron/, which must be installed so that your python interpreter can access its
+All the scripts were run in python version 3.8.10. All code is dependent on the NEURON
+simulator (version 8.1) https://www.neuron.yale.edu/neuron/, which must be installed so that your python interpreter can access its
 libraries through `import neuron`. The `.mod` files in the folder `ChannelModFiles` must be compiled on your local system before they can be used using the terminal command `nrnivmodl`, which will only work if NEURON is installed correctly. Unfortunately, depending on your system, the library containing these compiled modules can be in different places and can either be a `.so` or a `.dll` file. You will have to change the line
 
 `h = HocPythonTools.setup_neuron('../ChannelModFiles/x86_64/.libs/libnrnmech.so')`
