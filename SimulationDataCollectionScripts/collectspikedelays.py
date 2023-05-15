@@ -17,7 +17,7 @@ import datetime
 np.random.seed(0)
 
 # Set up the hoc interpreter and load the mechanisms
-h = HocPythonTools.setup_neuron('/home/iellwood/PycharmProjects/PyramidalNeuronModel/ChannelModFiles/x86_64/.libs/libnrnmech.so')
+h = HocPythonTools.setup_neuron('../ChannelModFiles/x86_64/.libs/libnrnmech.so')
 model = Neuron(h, include_ca_dependent_potentiation=True)
 
 # Parameters of simulation:

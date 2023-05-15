@@ -36,7 +36,7 @@ print('numpy seed =', seed)
 np.random.seed(seed)
 
 # Set up the hoc interpreter and load the mechanisms
-h = HocPythonTools.setup_neuron('/home/iellwood/PycharmProjects/PyramidalNeuronModel/ChannelModFiles/x86_64/.libs/libnrnmech.so')
+h = HocPythonTools.setup_neuron('../ChannelModFiles/x86_64/.libs/libnrnmech.so')
 model = Neuron(h, include_ca_dependent_potentiation=True)
 
 for branch in model.spiny_branches:

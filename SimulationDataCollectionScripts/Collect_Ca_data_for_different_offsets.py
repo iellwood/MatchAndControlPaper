@@ -31,7 +31,7 @@ def compute_offsets_process(queue, spine_number, times, repetitions):
 
     # Initialize the hoc interpreter and load all mechanisms
     # Set up the hoc interpreter and load the mechanisms
-    h = HocPythonTools.setup_neuron('/home/iellwood/PycharmProjects/PyramidalNeuronModel/ChannelModFiles/x86_64/.libs/libnrnmech.so')
+    h = HocPythonTools.setup_neuron('../ChannelModFiles/x86_64/.libs/libnrnmech.so')
     model = Neuron(h, include_ca_dependent_potentiation=False)
 
     distances = []
