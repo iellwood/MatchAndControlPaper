@@ -31,7 +31,7 @@ threshold = thresholds[1]
 
 x = np.load('../SimulationData/time_delays.npz')
 time_delays = x['time_delays']
-seed = 2
+seed = 0
 print('numpy seed =', seed)
 np.random.seed(seed)
 
@@ -41,7 +41,7 @@ model = Neuron(h, include_ca_dependent_potentiation=True)
 
 for branch in model.spiny_branches:
     for ampar in branch.ampa_list:
-        ampar.max_potentiation = 10
+        ampar.max_potentiation = 8
         ampar.ca_potentiation_threshold = threshold
         ampar.sigmoid_sharpness = 100
         ampar.tau_g_dynamic_delayed = 500
