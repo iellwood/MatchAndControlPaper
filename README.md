@@ -1,6 +1,6 @@
-## Short-term Hebbian learning can implement transformer-like attention
+### Short-term Hebbian learning can implement transformer-like attention
 
-### Ian T. Ellwood, Department of Neurobiology and Behavior, Cornell University
+#### Ian T. Ellwood, Department of Neurobiology and Behavior, Cornell University
 
 This repository contains the code to implement the model described in the paper, "Short-term Hebbian learning can implement transformer-like attention". While we have made every attempt to make sure that all the files needed to reproduce the paper's figures are available, please contact the author with any questions or concerns about the code or aspects of the model. 
 
@@ -11,7 +11,7 @@ libraries through `import neuron`. The `.mod` files in the folder `ChannelModFil
 
 `h = HocPythonTools.setup_neuron('../ChannelModFiles/x86_64/.libs/libnrnmech.so')`
 
-Everywhere it appears to have the correct path to the library.
+Everywhere it appears to have the correct path to the library. To test your installation, run the script `PrintParameters.py`. This script loads the model into NEURON and prints all of the parameters of the model including geometric and electrical properties, as well as all of the ion channel conductances. 
 
 The code is organized so that generating a figure typically requires calling a script to run a simulation for the required data. Most of the simulation 
 data has been provided in the repository, but `PotentiationExample.py` must be run for seeds 0-4, each time followed by running `Figure_4BEF_PlotPotentiationExample.py`. Once must also run `SpikeTrainOverlapExample.py` and `TwoSpinePotentiationExample.py`. Each of these simulations
