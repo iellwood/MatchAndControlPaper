@@ -43,7 +43,7 @@ for branch in model.spiny_branches:
     for ampar in branch.ampa_list:
         ampar.max_potentiation = 8
         ampar.ca_potentiation_threshold = threshold
-        ampar.sigmoid_sharpness = 100
+        ampar.sigmoid_sharpness = 20
         ampar.tau_g_dynamic_delayed = 500
 
 # Parameters of simulation:
