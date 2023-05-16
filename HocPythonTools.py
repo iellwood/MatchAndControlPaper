@@ -131,43 +131,49 @@ def print_model_parameters(h, sections, section_names, channel_list):
     for i in range(len(sections)):
         print(section_names[i])
         print('\tL =', sections[i].L)
-        print('\tdiam =', sections[i].diam)
-        print('\tcm =', sections[i].cm)
-        print('\tRa =', sections[i].Ra)
+        print('\tNumber of segments =', sections[i].nseg)
+        diam_list = []
+        for seg in sections[i]:
+            diam_list.append(seg.diam)
+        diam_list = np.round(diam_list, 2)
+        if len(np.unique(diam_list)) == 1:
+            print('\tDiameter =', diam_list[0])
+        else:
+            print('\tDiameters =', str(diam_list).replace('\n', '\n\t'))
+        print('\tMembrane Capacitance, Cm =', sections[i].cm)
+        print('\tAxial Resistance, Ra =', sections[i].Ra)
         try:
-            print('\tek =', sections[i].ek)
+            print('\tPotassium Reversal, ek =', sections[i].ek)
         except:
             pass
 
         try:
-            print('\tena =', sections[i].ena)
+            print('\tSodium Reversal, ena =', sections[i].ena)
         except:
             pass
 
         try:
-            print('\teca =', sections[i].eca)
+            print('\tCalcium Reversal, eca =', sections[i].eca)
         except:
             pass
 
-        for s in sections[i]:
-            print('\tsegment =', s)
+        for j, s in enumerate(sections[i]):
+            if j == 0:
 
-            print('\t\tdistance =', h.distance(s))
-            print('\t\tdiam =', s.diam)
+                mechanisms = [s for s in dir(s) if s in channel_list]
 
-            mechanisms = [s for s in dir(s) if s in channel_list]
+                for m in mechanisms:
+                    print('\t' + m, end=' --- ')
+                    mech = getattr(s, m)
+                    parameters = [s for s in dir(mech) if '__' not in s and s != 'm' and s !='h']
+                    values = [getattr(mech, p) for p in parameters]
 
-            for m in mechanisms:
-                print('\t\t' + m, end=' --- ')
-                mech = getattr(s, m)
-                parameters = [s for s in dir(mech) if '__' not in s]
-                values = [getattr(mech, p) for p in parameters]
+                    for k in range(len(parameters)):
+                        if type(values[k]) == float and values[k] != 0:
+                            print(parameters[k] + ': ' + str(values[k]), end=', ')
 
-                for k in range(len(parameters)):
-                    if type(values[k]) == float:
-                        print(parameters[k] + ': ' + str(values[k]), end=', ')
-
-                print('')
+                    print('')
+        print('')
 
 def setup_neuron(mechanism_library_filename):
     # Set up the hoc interpreter and load the mechanisms
