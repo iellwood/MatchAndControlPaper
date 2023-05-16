@@ -23,16 +23,16 @@ Note that the scripts that use `parallel_run.py` can take half a day or more to 
 
 | Panel |Simulation Script | Data file | Figure Script |
 | ----- | -----------------| ----------| ------------- |
-| **2A**    | `SpikeTrainOverlapExample.py` | `ExampleMatchingRun.npz` | `Figure_2A_PlotBasicOverlapExample.py` |
+| **2A**    | `SpikeTrainOverlapExample.py` | `ExampleMatchingRun.npz`* | `Figure_2A_PlotBasicOverlapExample.py` |
 | **2B**    | `ComputeSpikeDelays.py` | `spike_delay_data.obj` | `Figure_2B_PlotSpikeDelays.py` | 
 | **2C-D**| `CollectOverlapData.py` | `8Hz_1s.npz` & `TEST_DATA_8Hz_1s.npz` | `Figure_2CD_FitLinearModelToOverlapsAndPlot.py` |
 | **3A**| `CollectCaDataForDifferentOffsets.py` | `offset_data.npz` | `Figure_3A_PlotOffsetData.py` |
 |**3B-E**| `DistributionOfCaIntegrals.py` | `Ca_Integrals_for_ROC_plots/..` | `Figure_3BCDE_HistogramAndROCPlots.py`|
 |**3F-G**| `DistributionOfCaIntegralsWithNoise.py` | `Ca_Integrals_for_ROC_plots/..` | `Figure_3FG_HistogramAndROCPlots_Noise.py`|
 |**4A** | | | `Figure_4A_PlotThresholdSigma.py`|
-|**4B-F**| `PotentiationExample.py` | `BasicPotentiationExample.py` | `Figure_4BEF_PlotPotentiationExample.py`|
+|**4B-F**| `PotentiationExample.py` | `BasicPotentiationExample.py`* | `Figure_4BEF_PlotPotentiationExample.py`|
 |**4C** | `PotentiationThresholdScan.py` | `threshold_scan.npz` | `Figure_4C_PlotPotentiationThresholdScan.py`|
-|**4D** | `TwoSpinePotentiationExample.py` |`TwoSpinePotentiationExample.obj`| `Figure_4D_PlotTwoSpinePotentiationExample.py`|
+|**4D** | `TwoSpinePotentiationExample.py` |`TwoSpinePotentiationExample.obj`*| `Figure_4D_PlotTwoSpinePotentiationExample.py`|
 
-
+Data Files with an * are not included in the distribution and must be recomputed.
 
