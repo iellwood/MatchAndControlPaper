@@ -1,3 +1,5 @@
+<img src="https://github.com/iellwood/MatchAndControlPaper/blob/main/Match_and_Control_Image_For_GitHub.jpg" alt="Illustration of the Match-and-Control principle" width="600">
+
 ### Short-term Hebbian learning can implement transformer-like attention
 
 #### Ian T. Ellwood, Department of Neurobiology and Behavior, Cornell University
