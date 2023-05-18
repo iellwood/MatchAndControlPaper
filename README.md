@@ -9,11 +9,11 @@ This repository contains the code to implement the model described in the paper,
 All the scripts were run in python version 3.8.10 on Ubuntu 20.04.4. Required libraries are `numpy`, `neuron`, `matplotlib`, `scipy`, `torch` and `pickle`. PyCharm community edition was used for the management of the project and running the scripts. 
 
 All code is dependent on the NEURON simulator (version 8.2) https://www.neuron.yale.edu/neuron/, which must be installed so that your python interpreter can access its
-libraries through `import neuron`. The `.mod` files in the folder `ChannelModFiles` must be compiled on your local system before they can be used. To do so, run the terminal command `nrnivmodl`, which will only work if NEURON is installed correctly. Unfortunately, depending on your system, the library containing these compiled modules can be in different places and can either be a `.so` or a `.dll` file. You will have to change the line
+libraries through `import neuron`. The `.mod` files in the folder `ChannelModFiles` must be compiled on your local system before they can be used. To do so, run the terminal command `nrnivmodl`, which will only work if NEURON is installed correctly. Unfortunately, depending on your system, the library containing these compiled modules can be in different places and can either be a `.so` or a `.dll` file. You will have to change the line,
 
-`h = HocPythonTools.setup_neuron('../ChannelModFiles/x86_64/.libs/libnrnmech.so')`
+`h = HocPythonTools.setup_neuron('../ChannelModFiles/x86_64/.libs/libnrnmech.so')`,
 
-Everywhere it appears to have the correct path to the library. To test your installation, run the script `PrintParameters.py`. This script loads the model into NEURON and prints all of the parameters of the model including geometric and electrical properties, as well as all of the ion channel conductances. The expected output of this script is givenn in `ModelPropertiesPrintout.txt`.
+everywhere it appears to have the correct path to the library. To test your installation, run the script `PrintParameters.py`. This script loads the model into NEURON and prints all of the parameters of the model including geometric and electrical properties, as well as all of the ion channel conductances. The expected output of this script is givenn in `ModelPropertiesPrintout.txt`.
 
 The code is organized so that generating a figure typically requires calling a script to run a simulation for the required data. Most of the simulation 
 data has been provided in the repository, but `PotentiationExample.py` must be run for seeds 0-4, each time followed by running `Figure_4BEF_PlotPotentiationExample.py`. Once must also run `SpikeTrainOverlapExample.py` and `TwoSpinePotentiationExample.py`. Each of these simulations
