@@ -1,0 +1,131 @@
+Model properties from I. T. Ellwood, "Short-term Hebbian learning can implement transformer-like attention".
+
+Notes:
+	When diam is a list, the segment is tapered. Otherwise the diameter is constant.
+	Ion channel properties that are zero are not printed.
+	Ion channels in the axon change along the segment, but only the value in the first segment is printed.
+	Only one of the dendritic tuft branches is shown. The others are identical.
+
+Spine ion channel conductances
+	Single spine total AMPA conductance (nS) = 0.016
+	Single spine total AMPA conductance Potentiated (nS) = 0.128
+	Single spine total NMDA conductance (nS) = 0.0002
+	(See paper for discussion of possible mechanisms for AMPA component of potentiation increase.)
+
+Soma
+	L = 23.145256458812245
+	Number of segments = 1
+	Diameter = 23.15
+	Membrane Capacitance, Cm = 2.298892
+	Axial Resistance, Ra = 82.0
+	Potassium Reversal, ek = -80.0
+	Sodium Reversal, ena = 55.0
+	BahlEtAl_2012_kfast --- gbar: 50.802287, timefactor_n: 1.0,
+	BahlEtAl_2012_km --- gbar: 7.123963,
+	BahlEtAl_2012_kslow --- gbar: 361.584735,
+	BahlEtAl_2012_nap --- gbar: 0.873246,
+	BahlEtAl_2012_nat --- gbar: 284.546493, gbarfactor: 1.0, timefactor_h: 1.0, timefactor_m: 1.0, vshift: 10.0,
+
+Basal dendrite
+	L = 257.0
+	Number of segments = 1
+	Diameter = 8.75
+	Membrane Capacitance, Cm = 2.298892
+	Axial Resistance, Ra = 734.0
+	BahlEtAl_2012_ih --- ehd: -47.0, gbar: 15.709707,
+
+Axon
+	L = 500.0
+	Number of segments = 1
+	Diameter = 1.5
+	Membrane Capacitance, Cm = 2.298892
+	Axial Resistance, Ra = 82.0
+
+Axon initial segment
+	L = 25.0
+	Number of segments = 5
+	Diameters = [1.95 1.85 1.75 1.65 1.55]
+	Membrane Capacitance, Cm = 2.298892
+	Axial Resistance, Ra = 82.0
+	Sodium Reversal, ena = 55.0
+	BahlEtAl_2012_nat --- gbar: 13490.395442, gbarfactor: 1.0, timefactor_h: 1.0, timefactor_m: 1.0, vshift: 10.0, vshift2: -9.802976,
+
+Axon hillock
+	L = 20.0
+	Number of segments = 5
+	Diameters = [3.35 3.05 2.75 2.45 2.15]
+	Membrane Capacitance, Cm = 2.298892
+	Axial Resistance, Ra = 82.0
+	Sodium Reversal, ena = 55.0
+	BahlEtAl_2012_nat --- gbar: 8810.6571, gbarfactor: 1.0, timefactor_h: 1.0, timefactor_m: 1.0, vshift: 10.0,
+
+Apical shaft
+	L = 450.0
+	Number of segments = 451
+	Diameters = [6.97 6.73 6.5  6.28 6.08 5.88 5.7  5.53 5.36 5.21 5.06 4.93 4.8  4.67
+	 4.56 4.45 4.35 4.25 4.16 4.08 4.   3.92 3.85 3.78 3.72 3.66 3.61 3.56
+	 3.51 3.46 3.42 3.38 3.34 3.3  3.27 3.24 3.21 3.18 3.16 3.13 3.11 3.09
+	 3.07 3.05 3.03 3.01 3.   2.98 2.97 2.96 2.95 2.93 2.92 2.91 2.9  2.9
+	 2.89 2.88 2.87 2.87 2.86 2.85 2.85 2.84 2.84 2.83 2.83 2.82 2.82 2.82
+	 2.81 2.81 2.81 2.81 2.8  2.8  2.8  2.8  2.79 2.79 2.79 2.79 2.79 2.79
+	 2.78 2.78 2.78 2.78 2.78 2.78 2.78 2.78 2.78 2.78 2.77 2.77 2.77 2.77
+	 2.77 2.77 2.77 2.77 2.77 2.77 2.77 2.77 2.77 2.77 2.77 2.77 2.77 2.77
+	 2.77 2.77 2.77 2.77 2.77 2.77 2.77 2.77 2.77 2.77 2.77 2.77 2.77 2.77
+	 2.77 2.77 2.77 2.77 2.77 2.77 2.77 2.77 2.77 2.76 2.76 2.76 2.76 2.76
+	 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76
+	 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76
+	 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76
+	 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76
+	 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76
+	 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76
+	 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76
+	 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76
+	 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76
+	 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76
+	 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76
+	 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76
+	 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76
+	 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76
+	 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76
+	 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76
+	 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76
+	 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76
+	 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76
+	 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76
+	 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76
+	 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76 2.76
+	 2.76 2.76 2.76]
+	Membrane Capacitance, Cm = 1.0
+	Axial Resistance, Ra = 100.0
+	Potassium Reversal, ek = -77.0
+	Sodium Reversal, ena = 50.0
+	Im --- gImbar: 6.75e-05,
+	NaTa_t --- gNaTa_tbar: 0.30000000000000004,
+	SKv3_1 --- gSKv3_1bar: 0.24,
+
+Apical shaft top
+	L = 50.0
+	Number of segments = 51
+	Diameters = [2.76 2.67 2.58 2.49 2.41 2.33 2.25 2.18 2.1  2.03 1.96 1.9  1.83 1.77
+	 1.71 1.65 1.6  1.55 1.49 1.44 1.39 1.35 1.3  1.26 1.22 1.18 1.14 1.1
+	 1.06 1.03 0.99 0.96 0.93 0.89 0.86 0.84 0.81 0.78 0.75 0.73 0.7  0.68
+	 0.66 0.64 0.61 0.59 0.57 0.55 0.54 0.52 0.5 ]
+	Membrane Capacitance, Cm = 1.0
+	Axial Resistance, Ra = 500.0
+	Potassium Reversal, ek = -77.0
+	Sodium Reversal, ena = 50.0
+	Im --- gImbar: 6.75e-05,
+	NaTa_t --- gNaTa_tbar: 0.4,
+	SKv3_1 --- gSKv3_1bar: 0.32,
+
+Spiny dendrite in apical tuft
+	L = 250.0
+	Number of segments = 251
+	Diameter = 0.5
+	Membrane Capacitance, Cm = 1.0
+	Axial Resistance, Ra = 200.0
+	Potassium Reversal, ek = -85.0
+	Sodium Reversal, ena = 50.0
+	Im --- gImbar: 6.75e-05,
+	NaTa_t --- gNaTa_tbar: 0.1,
+	SKv3_1 --- gSKv3_1bar: 0.06,
