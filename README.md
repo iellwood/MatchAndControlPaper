@@ -19,13 +19,15 @@ everywhere it appears to have the correct path to the library. To test your inst
 
 #### Organization of the scripts for figure generation
 
-The code is organized so that generating a figure typically requires calling a script to run a simulation for the required data. Most of the simulation 
-data has been provided in the repository, but `PotentiationExample.py` must be run for seeds 0-4, each time followed by running `Figure_4BEF_PlotPotentiationExample.py`. Once must also run `SpikeTrainOverlapExample.py` and `TwoSpinePotentiationExample.py`. Each of these simulations
-should take around 4 minutes or less on a desktop CPU.
+The code is organized so that generating a figure typically requires calling a script to run a simulation for the required data. Most of the simulation data has been provided in the repository, but `PotentiationExample.py` must be run for seeds 0-4, each time followed by running `Figure_4BEF_PlotPotentiationExample.py`. Once must also run `SpikeTrainOverlapExample.py` and `TwoSpinePotentiationExample.py`. Each of these simulations should take around 4 minutes or less on a desktop CPU.
+
+The script `Figure_2B_PlotSpikeDelays.py` also includes the routines that compute the times when the backpropagated action potentials reach each spine and saves this data in `time_delays.npz`, which is used in many of the scripts. We have included it in the repository, but if you wish to reproduce it, note that you will have to run both scripts for Figure 2B in the table below.
 
 The script `DistributionOFCaIntegrals.py` must be run with different window sizes to reproduce all the data, but we have provided our run in the repository.
 
-Note that the scripts that use `parallel_run.py` can take half a day or more to run, depending on your CPU. Our implementation used 12 processors to run the simulations, but if your system has more cores, you should increase the variable `max_number_of_processes` in our scripts to speed up the computation. 
+Note that the scripts that use `parallel_run.py` can take half a day or more to run, depending on your CPU. Our implementation used 12 processors to run the simulations, but if your system has more cores, you should increase the variable `max_number_of_processes` in our scripts to speed up the computation.
+
+
 
 #### Table of simulation scripts, the data files they produce and the scripts that make the figures
 
