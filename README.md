@@ -27,6 +27,8 @@ The script `DistributionOFCaIntegrals.py` must be run with different window size
 
 Note that the scripts that use `parallel_run.py` can take half a day or more to run, depending on your CPU. Our implementation used 12 processors to run the simulations, but if your system has more cores, you should increase the variable `max_number_of_processes` in our scripts to speed up the computation. 
 
+#### Table of simulation scripts, the data files they produce and the scripts that make the figures
+
 | Panel |Simulation Script | Data file | Figure Script |
 | ----- | -----------------| ----------| ------------- |
 | **2A**    | `SpikeTrainOverlapExample.py` | `ExampleMatchingRun.npz`* | `Figure_2A_PlotBasicOverlapExample.py` |
