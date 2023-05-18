@@ -23,7 +23,7 @@ The code is organized so that generating a figure typically requires calling a s
 
 The script `Figure_2B_PlotSpikeDelays.py` also includes the routines that compute the times when the backpropagated action potentials reach each spine and saves this data in `time_delays.npz`, which is used in many of the scripts. We have included it in the repository, but if you wish to reproduce it, note that you will have to run both scripts for Figure 2B in the table below.
 
-The script `DistributionOFCaIntegrals.py` must be run with different window sizes to reproduce all the data, but we have provided our run in the repository.
+The script `DistributionOFCaIntegrals.py` and `DistributionOFCaIntegralsWithNoise.py` must be run with different window sizes or noise widths to reproduce all the data, but we have provided our run in the repository.
 
 Note that the scripts that use `parallel_run.py` can take half a day or more to run, depending on your CPU. Our implementation used 12 processors to run the simulations, but if your system has more cores, you should increase the variable `max_number_of_processes` in our scripts to speed up the computation.
 
