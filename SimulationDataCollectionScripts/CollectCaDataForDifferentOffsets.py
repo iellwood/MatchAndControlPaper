@@ -5,7 +5,6 @@ This script collects the data for Figure 3A.
 """
 
 import numpy as np
-import pickle
 import HocPythonTools
 import time
 import datetime
