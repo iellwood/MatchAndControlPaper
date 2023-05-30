@@ -8,7 +8,7 @@ This repository contains the code to implement the model described in the paper,
 
 #### Running the scripts
 
-All the scripts were run in python version 3.8.10 on Ubuntu 20.04.4. Required libraries are `numpy`, `neuron`, `matplotlib`, `scipy`, `torch` and `pickle`. PyCharm community edition was used for the management of the project and running the scripts. 
+All the scripts were run in python version 3.8.10 on Ubuntu 20.04.4. Required libraries are `numpy`, `neuron`, `matplotlib`, `scipy`, `torch`, `sklearn` and `pickle`. PyCharm community edition was used for the management of the project and running the scripts. 
 
 All code is dependent on the NEURON simulator (version 8.2) https://www.neuron.yale.edu/neuron/, which must be installed so that your python interpreter can access its
 libraries through `import neuron`. The `.mod` files in the folder `ChannelModFiles` must be compiled on your local system before they can be used. To do so, run the terminal command `nrnivmodl`, which will only work if NEURON is installed correctly. Unfortunately, depending on your system, the library containing these compiled modules can be in different places and can either be a `.so` or a `.dll` file. You will have to change the line,
