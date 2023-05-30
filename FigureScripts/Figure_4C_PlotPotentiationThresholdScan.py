@@ -43,7 +43,7 @@ for i in range(len(axes) - 1):
     axes[i].axis('off')
 
 prettyplot.x_axis_only(axes[-1])
-plt.savefig('../Figures/ThresholdScan.pdf', transparent=True)
+plt.savefig('../Figures/Figure_4C_ThresholdScan.pdf', transparent=True)
 
 plt.show()
 

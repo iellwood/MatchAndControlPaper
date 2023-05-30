@@ -96,6 +96,6 @@ axes[2, 0].set_ylim([-100, 50])
 axes[2, 1].set_ylim([-100, 50])
 axes[2, 2].set_ylim([-100, 50])
 
-plt.savefig('../Figures/TwoSpineExample_seed_' + str(seed) + '.pdf', transparent=True)
+plt.savefig('../Figures/Figure_4D_TwoSpineExample_seed_' + str(seed) + '.pdf', transparent=True)
 plt.show()
 

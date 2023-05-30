@@ -13,12 +13,15 @@ import prettyplot
 
 torch.manual_seed(0)
 
+q = np.load('../SimulationData/thresholds.npz', allow_pickle=True)
+thresholds = q['thresholds']
+
 # Used to normalize the calcium integrals to a fraction of the threshold
-thresholds = {
-    0.5:    0.05297869411632677,
-    1:      0.07983869416080833,
-    2:      0.12265248791940773
-}
+# thresholds = {
+#     0.5:    0.05297869411632677,
+#     1:      0.07983869416080833,
+#     2:      0.12265248791940773
+# }
 
 match_window_s = 1
 bin_size = 1
@@ -83,7 +86,9 @@ def load_data_into_torch_tensors(path):
 
 
 A, B, G = load_data_into_torch_tensors(path)
+G = G/thresholds[1]
 A_test, B_test, G_test = load_data_into_torch_tensors(path_test)
+G_test = G_test/thresholds[1]
 
 # Remove outliers more than 4 std away from mean:
 I = (G - torch.mean(G))/torch.std(G) < 4
@@ -158,7 +163,7 @@ def step(i):
 
         print(i, 'explained_variance =', [np.round(ev, 3), np.round(ev_test, 3)])
 
-for i in range(500):
+for i in range(10000):
     adam_optimizer.lr = 200/(i + 200) # slightly decrease the learning rate over time
     step(i)
 
@@ -170,7 +175,7 @@ plt.plot(ts, np.flip(k_nlin(K).cpu().detach().numpy()))
 plt.xlim([-100, 100])
 prettyplot.x_axis_only()
 prettyplot.xlabel('t (ms)')
-plt.savefig('../Figures/KernelModelOfOverlapPlots/Kernel.pdf', transparent=True)
+plt.savefig('../Figures/KernelModelOfOverlapPlots/Figure_2C_Kernel.pdf', transparent=True)
 plt.show()
 
 # Computes the explained variance of the model:
@@ -187,8 +192,8 @@ print('explained variance test =', ev_test)
 # Makes Figure 2 D
 fig = prettyplot.figure_with_specified_size((5, 6), (1, 0.5), (2, 3))
 I = torch.randint(0, A_test.shape[0], size=(1000,))
-g_m_test = g_model(A_test[I, :], B_test[I, :], K).cpu().detach().numpy()/thresholds[match_window_s]
-g_true_test = G_test[I].cpu().detach().numpy()/thresholds[match_window_s]
+g_m_test = g_model(A_test[I, :], B_test[I, :], K).cpu().detach().numpy()
+g_true_test = G_test[I].cpu().detach().numpy()
 plt.scatter(g_m_test, g_true_test,  marker='.', color=prettyplot.colors['blue'])
 plt.xlim([0, np.max(g_m_test)*1.05])
 plt.ylim([0, np.max(g_true_test)*1.05])
@@ -199,7 +204,7 @@ prettyplot.ylabel('g true')
 prettyplot.no_box()
 plt.text(np.max(g_m_test)*0.8, np.max(g_true_test)*0.8, 'R^2 = ' + str(np.round(ev_test, 2)))
 prettyplot.title('match window = ' + str(match_window_s) + ' s')
-plt.savefig('../Figures/KernelModelOfOverlapPlots/FitQuality.pdf', transparent=True)
+plt.savefig('../Figures/KernelModelOfOverlapPlots/Figure_2D_FitQuality.pdf', transparent=True)
 plt.show()
 
 

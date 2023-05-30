@@ -99,6 +99,6 @@ for i in range(len(axes)):
     for j in range(len(axes[i])):
         axes[i, j].set_xlim([0, 1100])
 
-plt.savefig('../Figures/BasicSpikeTrainMatchingExample.pdf')
+plt.savefig('../Figures/Figure_2A_BasicSpikeTrainMatchingExample.pdf')
 plt.show()
 

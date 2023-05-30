@@ -48,7 +48,7 @@ for i in range(g_dynamic_outputs_filtered.shape[0]):
     g_dynamic_outputs_filtered_offset[i, :] = np.interp(offset_times, offset_times + time_delays[spine_numbers[i]], g_dynamic_outputs_filtered[i, :])
 
 
-prettyplot.figure_with_specified_size((5, 4), (1, 0.5), (1.5, 1.5))
+prettyplot.figure_with_specified_size((5, 4), (1, 0.5), (1, 1.5))
 
 
 prettyplot.plot_with_sem(offset_times, np.transpose(g_dynamic_outputs_filtered_offset, axes=[1, 0]), color=prettyplot.colors['blue'], fillcolor=[0.8, 0.8, 1.0])
@@ -56,13 +56,15 @@ prettyplot.no_box()
 prettyplot.xlabel('delta t')
 plt.yticks([], [])
 prettyplot.ylabel('[Ca]^4 integral')
-plt.ylim([0, 0.028])
+#plt.ylim([0, 0.028])
 plt.xlim([-5, 20])
+max_g = np.max(np.mean(g_dynamic_outputs_filtered_offset, 0))
+plt.ylim([0, max_g*1.1])
 max_t = find_maximum_with_second_order_approximation(offset_times, np.mean(g_dynamic_outputs_filtered_offset, 0))
 print('best offset =', max_t)
 #plt.axvline(max_t, color='k', linewidth=2, linestyle='--')
 
 #plt.gca().text(max_t + 0.2, 0.5, str(np.round(max_t, 2)), rotation=90, transform=plt.gca().get_xaxis_text1_transform(0)[0])
-plt.savefig('../Figures/CaVsOffset.pdf')
+plt.savefig('../Figures/Figure_3A_CaVsOffset.pdf')
 prettyplot.title('average over 300 runs')
 plt.show()

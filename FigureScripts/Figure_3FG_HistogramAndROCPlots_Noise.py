@@ -6,7 +6,7 @@ import sklearn.metrics
 import scipy.stats as stats
 
 paths = [
-    '../SimulationData/Ca_Integrals_for_ROC_plots/8Hz_1s_0s_jitter.npz',
+    '../SimulationData/Ca_Integrals_for_ROC_plots/8Hz_1s.npz',
     '../SimulationData/Ca_Integrals_for_ROC_plots/8Hz_1s_1s_jitter.npz',
     '../SimulationData/Ca_Integrals_for_ROC_plots/8Hz_1s_2s_jitter.npz',
 ]
@@ -15,11 +15,8 @@ def kernel_density_estimation(x, dataset):
     kernel = stats.gaussian_kde(dataset)
     return kernel(x)
 
-thresholds = {
-    0.5:    0.052956840331085345,
-    1:      0.0733648827356375,
-    2:      0.11519541311446725
-}
+q = np.load('../SimulationData/thresholds.npz')
+thresholds = q['thresholds']
 
 def get_data_from_file(path):
     a = np.load(path)
@@ -46,7 +43,7 @@ def kde(i):
     a = np.reshape(data_random_spines, [-1])/thresholds[w]
     b = np.reshape(data_matched_spines, [-1])/thresholds[w]
     max_g = np.maximum(np.max(a), np.max(b))
-    x = np.linspace(0, 3, 1000)
+    x = np.linspace(0, 4, 1000)
     y_a = kernel_density_estimation(x, a)
     y_b = kernel_density_estimation(x, b)
 
@@ -69,7 +66,7 @@ for i, y_b in enumerate(y_bs):
     #plt.fill_between(x, y_b, 0, color=prettyplot.color_list[i], alpha=0.333)
 
 prettyplot.x_axis_only()
-plt.xlim([-.1, 3])
+plt.xlim([-.1, 4])
 plt.ylim([0, 1.5])
 plt.legend()
 plt.axvline(1, color='k', linewidth=2)
@@ -86,7 +83,7 @@ def make_roc(negatives, positives, color='k', label=None, include_45_line=True):
     sample_weight = np.concatenate([np.ones(shape=negatives.shape)/len(negatives), np.ones(shape=positives.shape)/len(positives)], axis=0)
     fpr, tpr, thresholds = sklearn.metrics.roc_curve(y_true, y_score, sample_weight=sample_weight, pos_label=1)
 
-    i = np.argmin(np.square(fpr - 0.001486517711815405))
+    i = np.argmin(np.square(fpr - 0.10))
 
     print('for fpr =', fpr[i], 'true positive rate =', tpr[i], 'threshold =', thresholds[i])
 
@@ -103,7 +100,9 @@ prettyplot.figure_with_specified_size((4, 4), (1, 1), (1.5, 1.5))
 
 for i in range(len(paths)):
     data_random_spines, data_matched_spines = get_data_from_file(paths[i])
-    make_roc(np.reshape(data_random_spines, [-1]), np.reshape(data_matched_spines, [-1]), color=prettyplot.color_list[i], label=[0, 1, 2][i], include_45_line=(i==0))
+    data_random_spines_flattened = np.reshape(data_random_spines, [-1])
+    data_random_spines_max = np.max(data_random_spines, axis=1)
+    make_roc(data_random_spines_max, np.reshape(data_matched_spines, [-1]), color=prettyplot.color_list[i], label=[0, 1, 2][i], include_45_line=(i==0))
 
 plt.legend(frameon=False)
 plt.xticks([0, 0.5, 1])
