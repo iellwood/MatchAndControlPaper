@@ -27,9 +27,6 @@ The script `DistributionOFCaIntegrals.py` and `DistributionOFCaIntegralsWithNois
 
 Note that the scripts that use `parallel_run.py` can take half a day or more to run, depending on your CPU. Our implementation used 12 processors to run the simulations, but if your system has more cores, you should increase the variable `max_number_of_processes` in our scripts to speed up the computation.
 
-Finally, some of the files are named `8Hz...`, but this is a legacy naming scheme. All runs were performed at 6 Hz.
-
-
 
 #### Table of simulation scripts, the data files they produce and the scripts that make the figures
 
@@ -51,4 +48,12 @@ Finally, some of the files are named `8Hz...`, but this is a legacy naming schem
 
 
 Data Files with an * are not included in the distribution and must be recomputed.
+
+To recreate the data files completely from scratch run
+1) `ComputeSpikeDelays.py`
+2) `Figure_2B_PlotSpikeDelays.py`
+3) `DistributionOfCaIntegrals.py` for all three match window sizes
+4) `Figure_3BCDE_HistogramAndROCPlots.py`, twice
+
+This will ensure that the files 'time_delays.npz' and 'thresholds.npz', which are used ubiquitously by the project are created.
 
