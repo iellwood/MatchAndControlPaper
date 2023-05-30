@@ -22,7 +22,7 @@ spike_position_jitter_std = 2
 special_spines = np.arange(1500) # spines to run
 max_number_of_processes = 12
 
-path = '../SimulationData/Ca_Integrals_for_ROC_plots/8Hz_' + str(match_window_s) + 's_' + str(spike_position_jitter_std) + 's_jitter'
+path = '../SimulationData/Ca_Integrals_for_ROC_plots/6Hz_' + str(match_window_s) + 's_' + str(spike_position_jitter_std) + 's_jitter'
 
 def argument_function(i):
     return (match_window, optimum_offset, i, spike_position_jitter_std)

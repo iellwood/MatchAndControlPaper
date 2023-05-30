@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 
 def collect_fraction_arrays(match_window_size_s):
 
-    data = np.load('../SimulationData/ControlPhaseTests/8Hz_' + str(match_window_size_s) + 's.npz', allow_pickle=True)
+    data = np.load('../SimulationData/ControlPhaseTests/6Hz_' + str(match_window_size_s) + 's.npz', allow_pickle=True)
 
     presynaptic_stimulation_times = data['presynaptic_stimulation_times']
     somatic_spike_times = data['somatic_spike_times']

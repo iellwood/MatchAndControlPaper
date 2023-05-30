@@ -25,9 +25,9 @@ match_window = 1000*match_window_s # ms
 max_number_of_processes = 12
 
 if test_data:
-    path = '../SimulationData/OverlapData/TEST_DATA_8Hz_' + str(match_window_s) + 's'
+    path = '../SimulationData/OverlapData/TEST_DATA_6Hz_' + str(match_window_s) + 's'
 else:
-    path = '../SimulationData/OverlapData/8Hz_' + str(match_window_s) + 's'
+    path = '../SimulationData/OverlapData/6Hz_' + str(match_window_s) + 's'
 
 def argument_function(i):
     return ( )

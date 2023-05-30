@@ -22,7 +22,7 @@ match_window_size = match_window
 gap_window_size = 500
 control_window_size = 1000
 
-path = '../SimulationData/ControlPhaseTests/8Hz_' + str(match_window_s) + 's'
+path = '../SimulationData/ControlPhaseTests/6Hz_' + str(match_window_s) + 's'
 
 q = np.load('../SimulationData/thresholds.npz')
 thresholds = q['thresholds']

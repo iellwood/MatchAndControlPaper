@@ -21,7 +21,7 @@ match_window = 1000*match_window_s # ms
 special_spines = np.arange(1500) # spines to run
 max_number_of_processes = 12
 
-path = '../SimulationData/Ca_Integrals_for_ROC_plots/8Hz_' + str(match_window_s) + 's'
+path = '../SimulationData/Ca_Integrals_for_ROC_plots/6Hz_' + str(match_window_s) + 's'
 
 def argument_function(i):
     return (match_window, optimum_offset, i)
