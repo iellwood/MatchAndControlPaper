@@ -52,7 +52,7 @@ Data Files with an * are not included in the distribution and must be recomputed
 To recreate the data files completely from scratch run
 1) `ComputeSpikeDelays.py`
 2) `Figure_2B_PlotSpikeDelays.py`
-3) `DistributionOfCaIntegrals.py` for all three match window sizes
+3) `DistributionOfCaIntegrals.py` for all three match window sizes (0.5, 1, 2)
 4) `Figure_3BCDE_HistogramAndROCPlots.py`, twice
 
 This will ensure that the files 'time_delays.npz' and 'thresholds.npz', which are used ubiquitously by the project are created.
