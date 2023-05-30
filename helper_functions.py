@@ -15,6 +15,9 @@ def generate_spike_train(time_range, spike_rate, recovery_time):
     :param recovery_time: The minimum time separation between spikes
     :return: The spike train as a np.array
     """
+    
+    spike_rate = 1/(1/spike_rate - recovery_time)
+
     current_t = time_range[0]
     beta = 1/spike_rate
     spike_times = []
@@ -50,6 +53,47 @@ def generate_spike_train_array(count, time_range, spike_rate, recovery_time, syn
     for i in range(count):
         if i % synapses_per_axon == 0:
             spike_train = generate_spike_train(time_range, spike_rate, recovery_time)
+        trains.append(spike_train)
+    if multi_synapse_arangement == 'neighbors' or multi_synapse_arangement is None:
+        pass
+    elif multi_synapse_arangement == 'random':
+        trains = list(np.random.permutation(np.array(trains, dtype=object)))
+    else:
+        raise Exception('Unknown multi-synapse arrangement.')
+
+    return trains
+
+
+
+def generate_spike_train_array_fixed_spike_count(count, windows, spike_counts, spike_rate, recovery_time, synapses_per_axon=1, multi_synapse_arangement='neighbors'):
+    """
+    Generates a list of spike trains using generate_spike_train with fixed numbers of spikes in each window
+    Note that synapses_per_axon specifies how many of the spike trains will be equal to each other.
+    For example, if synapses_per_axon = 10, every spike train will be repeated 10 times.
+
+    :param count: Number of spike trains to generate
+    :param windows: a list of time_ranges where spikes will be generated
+    :param time_range: A list representing the start and finish of the spike trains [t_0, t_1]
+    :param spike_rate: The spike-rate. Used only for sampling since the final spike count is fixed.
+    :param recovery_time: The minimum time between spikes
+    :param synapses_per_axon: See note above
+    :param multi_synapse_arangement: Must be 'neighbors' or 'random'. If 'neighbors', all the repeated
+    spike trains will be adjacent to each other in the list of spike trains.
+    :return: A list of spike-trains
+    """
+    trains = []
+    spike_train = None
+    for i in range(count):
+        if i % synapses_per_axon == 0:
+            spike_train = []
+            for window_number in range(len(windows)):
+                found_spike_train_fragment = False
+                while not found_spike_train_fragment:
+                    spike_train_fragment = generate_spike_train(windows[window_number], spike_rate, recovery_time)
+                    if len(spike_train_fragment) == spike_counts[window_number]:
+                        found_spike_train_fragment = True
+                spike_train.append(spike_train_fragment)
+            spike_train = np.concatenate(spike_train, axis=0)
         trains.append(spike_train)
     if multi_synapse_arangement == 'neighbors' or multi_synapse_arangement is None:
         pass

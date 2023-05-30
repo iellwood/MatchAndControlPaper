@@ -9,7 +9,7 @@ Notes:
 Spine ion channel conductances
 	Single spine total AMPA conductance (nS) = 0.016
 	Single spine total AMPA conductance Potentiated (nS) = 0.128
-	Single spine total NMDA conductance (nS) = 0.0002
+	Single spine total NMDA conductance (nS) = 0.0400
 	(See paper for discussion of possible mechanisms for AMPA component of potentiation increase.)
 
 Soma
