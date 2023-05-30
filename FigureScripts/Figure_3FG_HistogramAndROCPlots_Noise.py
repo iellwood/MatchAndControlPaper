@@ -7,8 +7,8 @@ import scipy.stats as stats
 
 paths = [
     '../SimulationData/Ca_Integrals_for_ROC_plots/6Hz_1s.npz',
-    '../SimulationData/Ca_Integrals_for_ROC_plots/6Hz_1s_1s_jitter.npz',
-    '../SimulationData/Ca_Integrals_for_ROC_plots/6Hz_1s_2s_jitter.npz',
+    '../SimulationData/Ca_Integrals_for_ROC_plots/6Hz_1s_1ms_jitter.npz',
+    '../SimulationData/Ca_Integrals_for_ROC_plots/6Hz_1s_2ms_jitter.npz',
 ]
 
 def kernel_density_estimation(x, dataset):
