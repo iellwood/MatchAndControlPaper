@@ -100,7 +100,7 @@ class L5NeuronReducedModel_BahlEtAl2012:
             self.kslow_list = [self.soma, self.apical, self.tuft]
             self.all_sections = [self.soma, self.basal, self.apical, self.tuft, self.axon, self.axon_initial_segment,
                                  self.axon_hillock]
-            self.all_section_names = ['soma', 'basal', 'apical dendrite', 'tuft', 'axon', 'axon initial segment',
+            self.all_section_names = ['Soma', 'Basal Dendrite', 'Apical dendrite', 'Apical Tuft', 'Axon', 'Axon initial segment',
                                       'axon hillock']
             self.ih_list = [self.basal, self.apical, self.tuft]
             self.apicaltree_list = [self.apical, self.tuft]
@@ -113,7 +113,7 @@ class L5NeuronReducedModel_BahlEtAl2012:
             self.kfast_list = [self.soma, self.apical]
             self.kslow_list = [self.soma, self.apical]
             self.all_sections = [self.soma, self.basal, self.apical, self.axon, self.axon_initial_segment, self.axon_hillock]
-            self.all_section_names = ['soma', 'basal', 'apical dendrite', 'axon', 'axon initial segment', 'axon hillock']
+            self.all_section_names = ['Soma', 'Basal dendrite', 'Apical dendrite', 'Axon', 'Axon initial segment', 'Axon hillock']
             self.ih_list = [self.basal, self.apical]
             self.apicaltree_list = [self.apical]
 
@@ -123,7 +123,7 @@ class L5NeuronReducedModel_BahlEtAl2012:
             self.kfast_list = [self.soma]
             self.kslow_list = [self.soma]
             self.all_sections = [self.soma, self.basal, self.axon, self.axon_initial_segment, self.axon_hillock]
-            self.all_section_names = ['soma', 'basal', 'axon', 'axon initial segment', 'axon hillock']
+            self.all_section_names = ['Soma', 'Basal dendrite', 'Axon', 'Axon initial segment', 'Axon hillock']
             self.ih_list = [self.basal]
 
         for section in self.all_sections:

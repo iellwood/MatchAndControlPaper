@@ -140,17 +140,6 @@ class Neuron:
                 seg.NaTa_t.gNaTa_tbar = seg.NaTa_t.gNaTa_tbar*2
                 seg.SKv3_1.gSKv3_1bar = seg.SKv3_1.gSKv3_1bar*1.5
 
-        # for spiny_dendrite in self.spiny_branches[:2]:
-        #     for seg in spiny_dendrite.distal_dendrite.section:
-        #         seg.NaTa_t.gNaTa_tbar = seg.NaTa_t.gNaTa_tbar*2.5
-        #         seg.SKv3_1.gSKv3_1bar = seg.SKv3_1.gSKv3_1bar*2.5 * 1.5 / 2
-
-        # for seg in self.spiny_dendrite_0.distal_dendrite.section:
-        #     seg.pas.e = -92
-        # for seg in self.spiny_dendrite_1.distal_dendrite.section:
-        #     seg.pas.e = -92
-
-
         self.v_soma = h.Vector().record(self.axosomatic_compartments.soma(0.5)._ref_v)
         self.v_apical_dendrite_shaft = [h.Vector().record(segment._ref_v) for segment in self.apical_dendrite_shaft.section]
 
@@ -209,7 +198,7 @@ class Neuron:
 
         scale = 0.08
         self.set_AMPA_weight('all', 0.1 * scale)
-        self.set_NMDA_weight('all', 0.00005 * scale)
+        self.set_NMDA_weight('all', 0.01 * scale)
 
         if special_spines is not None:
             for i in range(len(special_spines)):
