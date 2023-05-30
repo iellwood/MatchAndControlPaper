@@ -26,8 +26,8 @@ thresholds = q['thresholds']
 match_window_s = 1
 bin_size = 1
 match_window = match_window_s * 1000
-path = '../SimulationData/OverlapData/8Hz_' + str(match_window_s) + 's.npz'
-path_test = '../SimulationData/OverlapData/TEST_DATA_8Hz_' + str(match_window_s) + 's.npz'
+path = '../SimulationData/OverlapData/6Hz_' + str(match_window_s) + 's.npz'
+path_test = '../SimulationData/OverlapData/TEST_DATA_6Hz_' + str(match_window_s) + 's.npz'
 
 def load_data_into_torch_tensors(path):
     """

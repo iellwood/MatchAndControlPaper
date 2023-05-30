@@ -12,9 +12,9 @@ import sklearn.metrics
 import scipy.stats as stats
 
 paths = [
-    '../SimulationData/Ca_Integrals_for_ROC_plots/8Hz_0.5s.npz',
-    '../SimulationData/Ca_Integrals_for_ROC_plots/8Hz_1s.npz',
-    '../SimulationData/Ca_Integrals_for_ROC_plots/8Hz_2s.npz',
+    '../SimulationData/Ca_Integrals_for_ROC_plots/6Hz_0.5s.npz',
+    '../SimulationData/Ca_Integrals_for_ROC_plots/6Hz_1s.npz',
+    '../SimulationData/Ca_Integrals_for_ROC_plots/6Hz_2s.npz',
 ]
 
 q = np.load('../SimulationData/thresholds.npz')

@@ -6,9 +6,9 @@ import sklearn.metrics
 import scipy.stats as stats
 
 paths = [
-    '../SimulationData/Ca_Integrals_for_ROC_plots/8Hz_1s.npz',
-    '../SimulationData/Ca_Integrals_for_ROC_plots/8Hz_1s_1s_jitter.npz',
-    '../SimulationData/Ca_Integrals_for_ROC_plots/8Hz_1s_2s_jitter.npz',
+    '../SimulationData/Ca_Integrals_for_ROC_plots/6Hz_1s.npz',
+    '../SimulationData/Ca_Integrals_for_ROC_plots/6Hz_1s_1s_jitter.npz',
+    '../SimulationData/Ca_Integrals_for_ROC_plots/6Hz_1s_2s_jitter.npz',
 ]
 
 def kernel_density_estimation(x, dataset):
