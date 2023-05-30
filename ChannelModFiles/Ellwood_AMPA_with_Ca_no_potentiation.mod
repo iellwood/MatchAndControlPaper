@@ -1,13 +1,9 @@
 TITLE AMPA Synaptic current
 
 COMMENT
-
-This channel is adapted from a mod file from Hay et. al. 2011. The main addition is a parameter that keeps track of the
+This is AMPA model is based code from Kim et. al 2015, Badoual 2016 and Humphries et. al 2021. The main addition is a parameter that keeps track of the
 integral of the fourth power of the calcium concentration. In this version of the AMPA channel, there is no
 potentiation.
-
-Model from
-Humphries R, Mellor JR, O'Donnell C (2021) Acetylcholine Boosts Dendritic NMDA Spikes in a CA3 Pyramidal Neuron Model Neuroscience [PubMed]
 
 ENDCOMMENT
 
@@ -94,9 +90,7 @@ DERIVATIVE state {
 	Aampa' = - Aampa/tau1
 	Gampa' = - Gampa/tau2 : - Gampa/tau1	Aampa -> Gampa -> disappear with rate const of 1/tau1.
 
-    : A very simple model in which high calcium increases the conductance of ampa channels
-    g_dynamic' = -(g_dynamic)/tau_plasticity + cai * cai * cai * cai
-    : g_dynamic' = -(g_dynamic)/tau_plasticity + c_ca_4 * cai * cai * cai * cai * 1e-12
+    g_dynamic' = -(g_dynamic)/tau_plasticity + (cai - 5e-7) * (cai - 5e-7) * (cai - 5e-7) * (cai - 5e-7)
 
 }
 

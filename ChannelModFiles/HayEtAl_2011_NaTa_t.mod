@@ -3,7 +3,7 @@
 NEURON	{
 	SUFFIX NaTa_t
 	USEION na READ ena WRITE ina
-	RANGE gNaTa_tbar, gNaTa_t, ina
+	RANGE gNaTa_tbar
 }
 
 UNITS	{

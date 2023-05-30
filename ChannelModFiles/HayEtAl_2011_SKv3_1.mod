@@ -4,7 +4,7 @@
 NEURON	{
 	SUFFIX SKv3_1
 	USEION k READ ek WRITE ik
-	RANGE gSKv3_1bar, gSKv3_1, ik
+	RANGE gSKv3_1bar
 }
 
 UNITS	{
