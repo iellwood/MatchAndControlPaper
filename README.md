@@ -20,7 +20,7 @@ everywhere it appears to have the correct path to the library. To test your inst
 
 The code is organized so that generating a figure typically requires calling a script to run a simulation for the required data. Most of the simulation data has been provided in the repository, but several scripts must be run to produce all the data.
 
-1) `PotentiationExample.py` must be run for seeds 2 & 3, each time followed by running `Figure_4BEF_PlotPotentiationExample.py`. 
+1) `PotentiationExample.py` must be run for seeds 2 & 3, each time followed by running `Figure_4BEF_PlotPotentiationExample.py` with the appropriate datafile specified `BasicPotentiationExample_seed_<2 or 3>.obj`
 2) `FailedPotentiationExample.py` followed by `Figure_4E_PlotFailedPotentiationExample.py`
 3) `SpikeTrainOverlapExample.py` followed by `Figure_2A_PlotBasicOverlapExample.py`
 4) `TwoSpinePotentiationExample.py` followed by `Figure_4D_PlotTwoSpinePotentiationExample.py`
@@ -34,6 +34,8 @@ To recreate the data files completely from scratch run, in order
 4) `Figure_3BCDE_HistogramAndROCPlots.py`, twice
 
 This will ensure that the files 'time_delays.npz' and 'thresholds.npz', which are used ubiquitously by the project are created.
+
+Note that the folder structure shown in the repository must be present for many of the scripts to work as they will not create missing folders.
 
 Note that the scripts that use `parallel_run.py` can take half a day or more to run, depending on your CPU. Our implementation used 12 processors to run the simulations, but if your system has more cores, you should increase the variable `max_number_of_processes` in our scripts to speed up the computation.
 
@@ -53,7 +55,7 @@ Note that the scripts that use `parallel_run.py` can take half a day or more to 
 |**4E**| `FailedPotentiationExample.py`* | `FailedPotentiationExample_seed_0.py`* | `Figure_4E_PlotFailedPotentiationExample.py`|
 |**4C** | `PotentiationThresholdScan.py` | `threshold_scan.npz` | `Figure_4C_PlotPotentiationThresholdScan.py`|
 |**4D** | `TwoSpinePotentiationExample.py` |`TwoSpinePotentiationExample.obj`*| `Figure_4D_PlotTwoSpinePotentiationExample.py`|
-|**5A-C** | `CollectControlPhaseOutputs.py` (Once for each match window size), `ProcessControlPhaseTests.py`|`ControlPhaseTests/failed_and_spurious_spikes.npz`| `Figure_5ABC_successful_and_spurious_spikes.py`|
+|**5A-C** | `CollectControlPhaseOutputs.py` (Once for each match window size), `ProcessControlPhaseTests.py`|`failed_and_spurious_spikes.npz`| `Figure_5ABC_successful_and_spurious_spikes.py`|
 
 
 Data Files with an * are not included in the distribution and must be recomputed.
