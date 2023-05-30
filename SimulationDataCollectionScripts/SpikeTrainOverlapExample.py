@@ -12,15 +12,15 @@ import prettyplot
 import matplotlib.pyplot as plt
 from parallel_run import ParallelRun
 
-optimum_offset = 6.749648449404958
+optimum_offset = 7
 match_window_s = 1
 match_window = 1000*match_window_s # ms
 
 path = '../SimulationData/MatchingExample'
 
-np.random.seed(0)
+np.random.seed(1)
 
-special_spine= np.random.randint(0, 1500)
+special_spine = np.random.randint(0, 1500)
 
 x = np.load('../SimulationData/time_delays.npz')
 time_delays = x['time_delays']
@@ -38,7 +38,7 @@ number_of_spines = model.number_of_spines
 synapses_per_axon = 10
 
 simulation_time_ms = match_window
-presynaptic_spike_rate_kHz = 0.008
+presynaptic_spike_rate_kHz = 0.006
 interspike_refactory_period_ms = 50
 
 presynaptic_stimulation_times = generate_spike_train_array(

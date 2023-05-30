@@ -47,7 +47,7 @@ def get_g_dynamics(match_window, optimum_offset, special_spine):
     synapses_per_axon = 10
 
     simulation_time_ms = match_window
-    presynaptic_spike_rate_kHz = 0.008
+    presynaptic_spike_rate_kHz = 0.006
     interspike_refactory_period_ms = 50
 
     presynaptic_stimulation_times = generate_spike_train_array(

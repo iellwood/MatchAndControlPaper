@@ -4,8 +4,10 @@ I. T. Ellwood, Short-term Hebbian learning can implement transformer-like attent
 This script collects the data used for Figure 4, panels B, E & F, which show basic examples
 of the control phase of the match and control principle.
 
-Note that you must run this script with a specified seed (0-4) and then run
-"FigureScripts/Figure_4BEF_PlotPotentiationExample.py" to produce the figures in
+Note that you must run this script with a specified seed and then run
+Seeds 2 and 3 are used in the paper.
+
+"FigureScripts/Figure_4BF_PlotPotentiationExample.py" to produce the figures in
 "Figures/Potentiation_Examples"
 """
 
@@ -16,24 +18,22 @@ from Models.completeneuron import Neuron
 from helper_functions import generate_spike_train_array, generate_spike_train
 import datetime
 
+seed = 3
 
 optimum_offset = 7
-match_window_size = 1000
-number_of_postsynaptic_spikes = int(np.round(match_window_size * 0.008))
+match_window_s = 1
+match_window_size = match_window_s * 1000
+number_of_postsynaptic_spikes = int(np.round(match_window_size * 0.006))
 control_window_size = 1000
 gap_window_size = 500
 
-thresholds = {
-    0.5:    0.05297869411632677,
-    1:      0.07983869416080833,
-    2:      0.12265248791940773
-}
-
-threshold = thresholds[1]
+q = np.load('../SimulationData/thresholds.npz')
+thresholds = q['thresholds']
+mw_dict = {0.5: 0, 1:1, 2:2}
+threshold = thresholds[mw_dict[match_window_s]]
 
 x = np.load('../SimulationData/time_delays.npz')
 time_delays = x['time_delays']
-seed = 0
 print('numpy seed =', seed)
 np.random.seed(seed)
 
@@ -44,9 +44,6 @@ model = Neuron(h, include_ca_dependent_potentiation=True)
 for branch in model.spiny_branches:
     for ampar in branch.ampa_list:
         ampar.ca_potentiation_threshold = threshold
-        ampar.sigmoid_sharpness = 20 # 100 is very nearly a step function
-        ampar.tau_g_dynamic_delayed = 500
-
 
 # Parameters of simulation:
 number_of_spines = model.number_of_spines
@@ -55,13 +52,11 @@ special_spine = (np.random.randint(0, number_of_spines) // 10) * 10
 
 alternate_spine = (special_spine + (number_of_spines//2)) % number_of_spines
 simulation_time_ms = 2750
-spike_rate_kHz = 0.008
+spike_rate_kHz = 0.006
 interspike_refactory_period_ms = 50
-
 
 print('number_of_spines = ', number_of_spines)
 print('Special spine =', special_spine)
-
 
 presynaptic_stimulation_times = generate_spike_train_array(
     number_of_spines,
@@ -86,6 +81,7 @@ while not found_post_synaptic_times:
     if len(postsynaptic_stimulation_times) == number_of_postsynaptic_spikes:
         found_post_synaptic_times = True
 
+
 special_spine_stimulation_times = generate_spike_train(
     [250 + match_window_size + gap_window_size , 250 + match_window_size + gap_window_size + control_window_size],
     spike_rate=spike_rate_kHz,
@@ -101,10 +97,6 @@ for i in range(special_spine, special_spine + 10):
 iclamps = model.axosomatic_compartments.add_iclamps(postsynaptic_stimulation_times, 1, 4)
 
 model.add_presynaptic_stimulation(presynaptic_stimulation_times)
-
-scale = 0.08
-model.set_AMPA_weight('all', 0.1 * scale)  # 0.1 for 50 synapses
-model.set_NMDA_weight('all', 0.00005 * scale)  # 0.002 for 50 synapses
 
 # Run the simulation
 
@@ -122,20 +114,39 @@ g_spine = np.array(model.g_spine)
 v_apical = np.array(model.v_apical_dendrite_shaft)
 v_soma = np.array(model.v_soma)
 
+def get_second_best_spine(time_for_comparison, special_spine, t, g_spine):
+    i = np.argmin(np.abs(t - time_for_comparison))
+    g = g_spine[:, i]
+    g = g[::10]
+    I = np.argsort(g)
+    I = np.flip(I)
+    if I[0] * 10 != special_spine:
+        return I[0] * 10
+    else:
+        return I[1] * 10
+
+second_best_spine = get_second_best_spine(1250, special_spine, t, g_spine)
+
 
 save_dict = {
     'Description': 'Run of full model with potentiating spines',
     'date': datetime.datetime.now(),
     't': t,
-    'v_spine': v_spine,
-    'ca_spine': ca_spine,
-    'g_spine': g_spine,
+    'v_special_spine': v_spine[special_spine, :],
+    'ca_special_spine': ca_spine[special_spine, :],
+    'g_special_spine': g_spine[special_spine, :],
+
+    'v_second_best_spine': v_spine[second_best_spine, :],
+    'ca_second_best_spine': ca_spine[special_spine, :],
+    'g_second_best_spine': g_spine[second_best_spine, :],
+
     'v_apical': v_apical,
     'v_soma': v_soma,
     'postsynaptic_stimulation_times': postsynaptic_stimulation_times,
     'presynaptic_stimulation_times': presynaptic_stimulation_times,
+
     'special_spine': special_spine,
-    'alternate_spine': alternate_spine,
+    'second_best_spine': second_best_spine,
     'number_of_spines': number_of_spines,
     'synapses_per_axon': synapses_per_axon,
     'threshold': threshold,
@@ -147,7 +158,7 @@ save_dict = {
 }
 
 
-file_save_name = '../SimulationData/BasicPotentiationExample.obj'
+file_save_name = '../SimulationData/BasicPotentiationExample_seed_' + str(seed) + '.obj'
 
 with open(file_save_name, 'wb') as handle:
     pickle.dump(save_dict, handle, protocol=pickle.HIGHEST_PROTOCOL)

@@ -19,8 +19,8 @@ import prettyplot
 import matplotlib.pyplot as plt
 from parallel_run import ParallelRun
 
-test_data = True
-match_window_s = 2
+test_data = False
+match_window_s = 1
 match_window = 1000*match_window_s # ms
 max_number_of_processes = 12
 
@@ -52,7 +52,7 @@ def get_g_dynamics():
     number_of_spines = model.number_of_spines
     synapses_per_axon = 10
 
-    presynaptic_spike_rate_kHz = 0.008
+    presynaptic_spike_rate_kHz = 0.006
     interspike_refactory_period_ms = 50
 
     presynaptic_stimulation_times = generate_spike_train_array(

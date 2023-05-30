@@ -1,42 +1,50 @@
 """
 I. T. Ellwood, Short-term Hebbian learning can implement transformer-like attention
 
-This script collects the data for Figure 4C.
+This script collects the data used for Figure 5.
 """
 
 import numpy as np
 import HocPythonTools
 from Models.completeneuron import Neuron
 from helper_functions import generate_spike_train_array, generate_spike_train
+from scipy.signal import argrelextrema
+import os
+import time
 from parallel_run import ParallelRun
 
-seed = 4
-
-path = '../SimulationData/threshold_scan.npz'
+max_number_of_processes = 12
 
 optimum_offset = 7
-match_window_s = 1
-match_window_size = match_window_s * 1000
-number_of_postsynaptic_spikes = int(np.round(match_window_size * 0.006))
-control_window_size = 1000
+match_window_s = 0.5
+match_window = 1000*match_window_s # ms
+match_window_size = match_window
 gap_window_size = 500
+control_window_size = 1000
+
+path = '../SimulationData/ControlPhaseTests/8Hz_' + str(match_window_s) + 's'
 
 q = np.load('../SimulationData/thresholds.npz')
 thresholds = q['thresholds']
 mw_dict = {0.5: 0, 1:1, 2:2}
 threshold = thresholds[mw_dict[match_window_s]]
 
+def argument_function(i):
+    return ( )
 
-def run_simulation(threshold):
+def get_control_phase_spike_outputs():
+
+    # This line is essential to get the processes to have different random seeds
+    np.random.seed((os.getpid() * int(time.time()*10000)) % 123456789)
 
     x = np.load('../SimulationData/time_delays.npz')
     time_delays = x['time_delays']
-    np.random.seed(seed)
 
     # Set up the hoc interpreter and load the mechanisms
     h = HocPythonTools.setup_neuron('../ChannelModFiles/x86_64/.libs/libnrnmech.so')
     model = Neuron(h, include_ca_dependent_potentiation=True)
 
+    # Set the ca-integral potentiation threshold
     for branch in model.spiny_branches:
         for ampar in branch.ampa_list:
             ampar.ca_potentiation_threshold = threshold
@@ -46,12 +54,14 @@ def run_simulation(threshold):
     synapses_per_axon = 10
     special_spine = (np.random.randint(0, number_of_spines) // 10) * 10
 
+    alternate_spine = (special_spine + (number_of_spines//2)) % number_of_spines
+    simulation_time_ms = 2750
     spike_rate_kHz = 0.006
     interspike_refactory_period_ms = 50
 
     presynaptic_stimulation_times = generate_spike_train_array(
         number_of_spines,
-        [250, 250 + match_window_size + 500 + control_window_size],
+        [250, 250 + match_window_size + gap_window_size + control_window_size],
         spike_rate_kHz,
         recovery_time=interspike_refactory_period_ms,
         synapses_per_axon=synapses_per_axon,
@@ -61,16 +71,11 @@ def run_simulation(threshold):
     for i in range(len(presynaptic_stimulation_times)):
         presynaptic_stimulation_times[i] = presynaptic_stimulation_times[i][np.logical_or(presynaptic_stimulation_times[i] <= 250 + match_window_size, presynaptic_stimulation_times[i] >= 250 + match_window_size + gap_window_size)]
 
-
-    found_post_synaptic_times = False
-    while not found_post_synaptic_times:
-        postsynaptic_stimulation_times = generate_spike_train(
-            [250, 250 + match_window_size],
-            spike_rate=spike_rate_kHz,
-            recovery_time=interspike_refactory_period_ms,
-        )
-        if len(postsynaptic_stimulation_times) == number_of_postsynaptic_spikes:
-            found_post_synaptic_times = True
+    postsynaptic_stimulation_times = generate_spike_train(
+        [250, 250 + match_window_size],
+        spike_rate=spike_rate_kHz,
+        recovery_time=interspike_refactory_period_ms,
+    )
 
     special_spine_stimulation_times = generate_spike_train(
         [250 + match_window_size + gap_window_size , 250 + match_window_size + gap_window_size + control_window_size],
@@ -96,66 +101,48 @@ def run_simulation(threshold):
     h.continuerun(250 + match_window_size + gap_window_size + control_window_size + 250)
 
     t = np.array(t)
-    v_spine = np.array(model.v_spine)[special_spine, :]
-    ca_spine = np.array(model.ca_spine)[special_spine, :]
-    g_spine = np.array(model.g_spine)[special_spine, :]
     v_soma = np.array(model.v_soma)
 
+    local_maxima = argrelextrema(v_soma, np.greater)[0]
+    local_maxima = local_maxima[v_soma[local_maxima] > 0]
+    somatic_spike_times = t[local_maxima]
 
-    output = {
-        't': t,
-        'v_spine': v_spine,
-        'ca_spine': ca_spine,
-        'g_spine': g_spine,
-        'v_soma': v_soma,
-        'postsynaptic_stimulation_times': postsynaptic_stimulation_times,
-        'presynaptic_stimulation_times': presynaptic_stimulation_times,
-        'special_spine': special_spine,
-        'threshold': threshold,
-        'seed': seed,
-    }
-
-    return output
-
-threshold_multipliers = np.flip(np.geomspace(0.25*np.sqrt(2), 4, 9))
-print('threshold_multipliers =', np.round(threshold_multipliers, 3))
-
-def argument_function(i):
-    return (thresholds[mw_dict[match_window_s]] * threshold_multipliers[i], )
+    return {
+            'presynaptic_stimulation_times': presynaptic_stimulation_times,
+            'postsynaptic_stimulation_times': postsynaptic_stimulation_times,
+            'somatic_spike_times': somatic_spike_times,
+            'special_spine': special_spine,
+            }
 
 
 if __name__ == '__main__':
-    parallelrun = ParallelRun(
-        target_function=run_simulation,
+
+    parallel_run = ParallelRun(
+        target_function=get_control_phase_spike_outputs,
         argument_function=argument_function,
-        max_number_of_processes=12,
-        iterations=len(threshold_multipliers),
+        max_number_of_processes=max_number_of_processes,
+        iterations=1000,
     )
 
-    outputs = parallelrun.run()
+    outputs = parallel_run.run()
 
-    vs = []
-    ts = []
-    thresholds = []
+    somatic_spike_times = []
+    presynaptic_stimulation_times = []
+    postsynaptic_stimulation_times = []
+    special_spines = []
+
     for output in outputs:
-        vs.append(output['v_soma'])
-        ts.append(output['t'])
-        thresholds.append(output['threshold'])
-
-    vs = np.array(vs)
-    ts = np.array(ts)
-    thresholds = np.array(thresholds)
-
-    I = np.argsort(thresholds)
-
-    thresholds = thresholds[I]
-    vs = vs[I, :]
-    ts = ts[I, :]
-
-    special_spine = outputs[0]['special_spine']
-    presynaptic_stimulation_times = outputs[0]['presynaptic_stimulation_times'][special_spine]
-    postsynaptic_stimulation_times = outputs[0]['postsynaptic_stimulation_times']
-
-    np.savez(path, ts=ts, vs=vs, special_spine=special_spine, presynaptic_stimulation_times=presynaptic_stimulation_times, postsynaptic_stimulation_times=postsynaptic_stimulation_times)
+        presynaptic_stimulation_times.append(output['presynaptic_stimulation_times'])
+        postsynaptic_stimulation_times.append(output['postsynaptic_stimulation_times'])
+        somatic_spike_times.append(output['somatic_spike_times'])
+        special_spines.append(output['special_spine'])
 
 
+    np.savez(
+        path,
+        match_window=match_window,
+        special_spines=special_spines,
+        somatic_spike_times=somatic_spike_times,
+        presynaptic_stimulation_times=presynaptic_stimulation_times,
+        postsynaptic_stimulation_times=postsynaptic_stimulation_times
+    )

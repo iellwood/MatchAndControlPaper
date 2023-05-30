@@ -49,7 +49,7 @@ def compute_offsets_process(queue, spine_number, times, repetitions):
     pid = os.getpid()
 
     simulation_time_ms = 250
-    presynaptic_spike_rate_kHz = 0.008
+    presynaptic_spike_rate_kHz = 0.006
     interspike_refactory_period_ms = 50
 
     def perform_run(special_spine, t_offset=5):
@@ -156,7 +156,7 @@ if __name__ == '__main__':
 
         processes = [process for process in processes if process.is_alive()]
 
-        if len(processes) < 10:
+        if len(processes) < 12:
             process = multiprocessing.Process(
                 target=compute_offsets_process,
                 args=(queue, spine_number, offset_times, repetitions)
