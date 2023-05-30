@@ -4,7 +4,7 @@
 
 #### Ian T. Ellwood, Department of Neurobiology and Behavior, Cornell University
 
-This repository contains the code to implement the model described in the paper, "Short-term Hebbian learning can implement transformer-like attention". While we have made every attempt to make sure that all the files needed to reproduce the paper's figures are available, please contact the author with any questions or concerns about the code or aspects of the model. 
+This repository contains the code to implement the model described in the paper, "Short-term Hebbian learning can implement transformer-like attention". While we have made every attempt to make sure that all the files needed to reproduce the paper's figures are available, please contact the author with any questions or concerns about the code or aspects of the model. Some of the files produced by the stimulations are very large. If the complete datafiles are required, a link to a dropbox containing the PyCharm project can be made available upon requrest.
 
 #### Running the scripts
 
