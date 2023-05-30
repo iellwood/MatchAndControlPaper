@@ -10,8 +10,7 @@ This repository contains the code to implement the model described in the paper,
 
 All the scripts were run in python version 3.8.10 on Ubuntu 20.04.4. Required libraries are `numpy`, `neuron`, `matplotlib`, `scipy`, `torch`, `sklearn` and `pickle`. PyCharm community edition was used for the management of the project and running the scripts. 
 
-All code is dependent on the NEURON simulator (version 8.2) https://www.neuron.yale.edu/neuron/, which must be installed so that your python interpreter can access its
-libraries through `import neuron`. The `.mod` files in the folder `ChannelModFiles` must be compiled on your local system before they can be used. To do so, run the terminal command `nrnivmodl`, which will only work if NEURON is installed correctly. Unfortunately, depending on your system, the library containing these compiled modules can be in different places and can either be a `.so` or a `.dll` file. You will have to change the line,
+All code is dependent on the NEURON simulator (version 8.2) https://www.neuron.yale.edu/neuron/, which must be installed so that your python interpreter can access its libraries through `import neuron`. The `.mod` files in the folder `ChannelModFiles` must be compiled on your local system before they can be used. To do so, run the terminal command `nrnivmodl`, which will only work if NEURON is installed correctly. Unfortunately, depending on your system, the library containing these compiled modules can be in different places and can either be a `.so` or a `.dll` file. You will have to change the line,
 
 `h = HocPythonTools.setup_neuron('../ChannelModFiles/x86_64/.libs/libnrnmech.so')`,
 
@@ -19,11 +18,22 @@ everywhere it appears to have the correct path to the library. To test your inst
 
 #### Organization of the scripts for figure generation
 
-The code is organized so that generating a figure typically requires calling a script to run a simulation for the required data. Most of the simulation data has been provided in the repository, but `PotentiationExample.py` must be run for seeds 0-4, each time followed by running `Figure_4BEF_PlotPotentiationExample.py`. Once must also run `SpikeTrainOverlapExample.py` and `TwoSpinePotentiationExample.py`. Each of these simulations should take around 4 minutes or less on a desktop CPU.
+The code is organized so that generating a figure typically requires calling a script to run a simulation for the required data. Most of the simulation data has been provided in the repository, but several scripts must be run to produce all the data.
 
-The script `Figure_2B_PlotSpikeDelays.py` also includes the routines that compute the times when the backpropagated action potentials reach each spine and saves this data in `time_delays.npz`, which is used in many of the scripts. We have included it in the repository, but if you wish to reproduce it, note that you will have to run both scripts for Figure 2B in the table below. Many of the scripts also utilize `thresholds.npz`, which is produced by `Figure_3BCDE_HistogramAndROCPlots.py` and which we have included. These thresholds are used to normalize the calcium integrals so that they can be compared in a meaningful way across match window sizes.
+1) `PotentiationExample.py` must be run for seeds 2 & 3, each time followed by running `Figure_4BEF_PlotPotentiationExample.py`. 
+2) `FailedPotentiationExample.py` followed by `Figure_4E_PlotFailedPotentiationExample.py`
+3) `SpikeTrainOverlapExample.py` followed by `Figure_2A_PlotBasicOverlapExample.py`
+4) `TwoSpinePotentiationExample.py` followed by `Figure_4D_PlotTwoSpinePotentiationExample.py`
+5) `CollectControlPhaseOutputs.py` for all match window sizes (0.5, 1, 2) followed by `ProcessControlPhaseTests.py`. Note that the output of `ProcessControlPhaseTests.py` has been provided and that `CollectControlPhaseOutputs.py` can require several days of compute time.
 
-The script `DistributionOFCaIntegrals.py` and `DistributionOFCaIntegralsWithNoise.py` must be run with different window sizes or noise widths to reproduce all the data, but we have provided our run in the repository. Similarly `CollectControlPhaseOutputs.py` must be run for all three windows and then `ProcessControlPhaseTests.py` must be run. We have only included the output of `ProcessControlPhaseTests.py` in the repository, `ControlPhaseTests/failed_and_spurious_spikes.npz`.
+To recreate the data files completely from scratch run, in order
+
+1) `ComputeSpikeDelays.py`
+2) `Figure_2B_PlotSpikeDelays.py`
+3) `DistributionOfCaIntegrals.py` for all three match window sizes (0.5, 1, 2)
+4) `Figure_3BCDE_HistogramAndROCPlots.py`, twice
+
+This will ensure that the files 'time_delays.npz' and 'thresholds.npz', which are used ubiquitously by the project are created.
 
 Note that the scripts that use `parallel_run.py` can take half a day or more to run, depending on your CPU. Our implementation used 12 processors to run the simulations, but if your system has more cores, you should increase the variable `max_number_of_processes` in our scripts to speed up the computation.
 
@@ -43,17 +53,10 @@ Note that the scripts that use `parallel_run.py` can take half a day or more to 
 |**4E**| `FailedPotentiationExample.py`* | `FailedPotentiationExample_seed_0.py`* | `Figure_4E_PlotFailedPotentiationExample.py`|
 |**4C** | `PotentiationThresholdScan.py` | `threshold_scan.npz` | `Figure_4C_PlotPotentiationThresholdScan.py`|
 |**4D** | `TwoSpinePotentiationExample.py` |`TwoSpinePotentiationExample.obj`*| `Figure_4D_PlotTwoSpinePotentiationExample.py`|
-|**4D** | `TwoSpinePotentiationExample.py` |`TwoSpinePotentiationExample.obj`*| `Figure_4D_PlotTwoSpinePotentiationExample.py`|
-|**5A-C** | `CollectControlPhaseOutputs.py`, `ProcessControlPhaseTests.py`|`ControlPhaseTests/failed_and_spurious_spikes.npz`*| `Figure_5ABC_successful_and_spurious_spikes.py`|
+|**5A-C** | 3 x `CollectControlPhaseOutputs.py`, `ProcessControlPhaseTests.py`|`ControlPhaseTests/failed_and_spurious_spikes.npz`| `Figure_5ABC_successful_and_spurious_spikes.py`|
 
 
 Data Files with an * are not included in the distribution and must be recomputed.
 
-To recreate the data files completely from scratch run
-1) `ComputeSpikeDelays.py`
-2) `Figure_2B_PlotSpikeDelays.py`
-3) `DistributionOfCaIntegrals.py` for all three match window sizes (0.5, 1, 2)
-4) `Figure_3BCDE_HistogramAndROCPlots.py`, twice
 
-This will ensure that the files 'time_delays.npz' and 'thresholds.npz', which are used ubiquitously by the project are created.
 
