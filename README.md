@@ -42,7 +42,6 @@ Note that the scripts that use `parallel_run.py` can take half a day or more to 
 |**4A** | | | `Figure_4A_PlotThresholdSigma.py`|
 |**4B,F**| `PotentiationExample.py` | `BasicPotentiationExample_seed_[2 or 3].py`* | `Figure_4BF_PlotPotentiationExample.py`|
 |**4E**| `FailedPotentiationExample.py` | `FailedPotentiationExample_seed_0.py`* | `Figure_4E_PlotFailedPotentiationExample.py`|
-
 |**4C** | `PotentiationThresholdScan.py` | `threshold_scan.npz` | `Figure_4C_PlotPotentiationThresholdScan.py`|
 |**4D** | `TwoSpinePotentiationExample.py` |`TwoSpinePotentiationExample.obj`*| `Figure_4D_PlotTwoSpinePotentiationExample.py`|
 |**4D** | `TwoSpinePotentiationExample.py` |`TwoSpinePotentiationExample.obj`*| `Figure_4D_PlotTwoSpinePotentiationExample.py`|
