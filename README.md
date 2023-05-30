@@ -43,13 +43,13 @@ Note that the scripts that use `parallel_run.py` can take half a day or more to 
 | Panel |Simulation Script | Data file | Figure Script |
 | ----- | -----------------| ----------| ------------- |
 | **2A**    | `SpikeTrainOverlapExample.py` | `ExampleMatchingRun.npz`* | `Figure_2A_PlotBasicOverlapExample.py` |
-| **2B**    | `ComputeSpikeDelays.py` | `spike_delay_data.obj` | `Figure_2B_PlotSpikeDelays.py` | 
-| **2C-D**| `CollectOverlapData.py` | `8Hz_1s.npz` & `TEST_DATA_8Hz_1s.npz` | `Figure_2CD_FitLinearModelToOverlapsAndPlot.py` |
+| **2B**    | `ComputeSpikeDelays.py` | `spike_delay_data.obj`* | `Figure_2B_PlotSpikeDelays.py` (produces figure and `time_delays.npz`)| 
+| **2C-D**| `CollectOverlapData.py` | `6Hz_<0.5, 1, or 2>s.npz` & `TEST_DATA_6Hz_<0.5, 1, or 2>s.npz` | `Figure_2CD_FitLinearModelToOverlapsAndPlot.py` |
 | **3A**| `CollectCaDataForDifferentOffsets.py` | `offset_data.npz` | `Figure_3A_PlotOffsetData.py` |
-|**3B-E**| `DistributionOfCaIntegrals.py` (Once for each match window size)| `Ca_Integrals_for_ROC_plots/..` | `Figure_3BCDE_HistogramAndROCPlots.py`|
-|**3F-G**| `DistributionOfCaIntegralsWithNoise.py` (Once for each noise std)| `Ca_Integrals_for_ROC_plots/..` | `Figure_3FG_HistogramAndROCPlots_Noise.py`|
+|**3B-E**| `DistributionOfCaIntegrals.py` (Once for each match window size)| `6Hz_<0.5, 1 or 2>s.npz` | `Figure_3BCDE_HistogramAndROCPlots.py`|
+|**3F-G**| `DistributionOfCaIntegralsWithNoise.py` (Once for each noise std)| `6Hz_1s_<1 or 2>ms_jitter.npz` | `Figure_3FG_HistogramAndROCPlots_Noise.py`|
 |**4A** | | | `Figure_4A_PlotThresholdSigma.py`|
-|**4B,F**| `PotentiationExample.py` (seeds 2 & 3)| `BasicPotentiationExample_seed_[2 or 3].obj`* | `Figure_4BF_PlotPotentiationExample.py` (once for each seed)|
+|**4B,F**| `PotentiationExample.py` (seeds 2 & 3)| `BasicPotentiationExample_seed_<2 or 3>.obj`* | `Figure_4BF_PlotPotentiationExample.py` (once for each seed)|
 |**4E**| `FailedPotentiationExample.py`* | `FailedPotentiationExample_seed_0.py`* | `Figure_4E_PlotFailedPotentiationExample.py`|
 |**4C** | `PotentiationThresholdScan.py` | `threshold_scan.npz` | `Figure_4C_PlotPotentiationThresholdScan.py`|
 |**4D** | `TwoSpinePotentiationExample.py` |`TwoSpinePotentiationExample.obj`*| `Figure_4D_PlotTwoSpinePotentiationExample.py`|
